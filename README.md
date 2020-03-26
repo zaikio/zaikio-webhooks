@@ -4,7 +4,7 @@ Gem that enables you to easily subscribe to Zaikio's webhooks. It also enables o
 
 ## Installation
 
-1. Add this line to your application's Gemfile:
+### 1. Add this line to your application's Gemfile:
 
 ```ruby
 gem 'zaikio-webhook'
@@ -20,7 +20,7 @@ Or install it yourself as:
 $ gem install zaikio-webhook
 ```
 
-2. Configure the gem:
+### 2. Configure the gem:
 
 ```rb
 # config/initializers/zaikio_webhook.rb
@@ -43,7 +43,7 @@ Zaikio::Webhook.on "directory.machine_added", AddMachineJob,
                    client_name: :my_app
 ```
 
-3. Mount Engine
+### 3. Mount Engine
 
 ```rb
 mount Zaikio::Webhook::Engine => "/zaikio/webhook"
@@ -55,11 +55,11 @@ The final webhook URL will be:
 https://mydomain.de/zaikio/webhook/client_name
 ```
 
-4. Configure ActiveJob
+### 4. Configure ActiveJob
 
 It is recommended to configure background processing, if not all events are performed immediately. Read the [ActiveJob Rails Guide](https://guides.rubyonrails.org/active_job_basics.html) for more details.
 
-5. Setup Custom Jobs
+### 5. Setup Custom Jobs
 
 Every webhook callback expects one job. The job receives the event with useful attributes:
 
