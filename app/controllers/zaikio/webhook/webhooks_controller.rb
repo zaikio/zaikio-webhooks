@@ -6,7 +6,7 @@ module Zaikio
       def receive_event
         Zaikio::Webhook.webhooks_for(params[:client_name], event_params[:name]).each do |webhook|
           webhook[:job_klass].public_send(webhook[:perform_now] ? :perform_now : :perform_later,
-                                          event_params)
+                                          Zaikio::Webhook::Event.new(event_params))
         end
 
         head :ok

@@ -72,10 +72,10 @@ module Zaikio
             "custom_attribute" => "abc"
           }
         }
-        MyJob.expects(:perform_later).with(data)
+        MyJob.expects(:perform_later).with(Zaikio::Webhook::Event.new(data))
         MyOtherJob.expects(:perform_later).never
         MyThirdJob.expects(:perform_later).never
-        MyThirdJob.expects(:perform_now).with(data)
+        MyThirdJob.expects(:perform_now).with(Zaikio::Webhook::Event.new(data))
         MyJob.expects(:perform_now).never
         post zaikio_webhook.root_path("my_app"), params: data.to_json, headers: {
           "X-Loom-Signature" => signature("test-secret", data),

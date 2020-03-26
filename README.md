@@ -52,3 +52,22 @@ mount Zaikio::Webhook::Engine => "/zaikio/webhook"
 4. Configure ActiveJob
 
 It is recommended to configure background processing, if not all events are performed immediately. Read the [ActiveJob Rails Guide](https://guides.rubyonrails.org/active_job_basics.html) for more details.
+
+5. Setup Custom Jobs
+
+Every webhook callback expects one job. The job receives the event with useful attributes:
+
+```rb
+class AddMachineJob < ApplicationJob
+  def perform(event)
+    event.id # UUID
+    event.name # directory.machine_added
+    event.subject_type # Organization
+    event.subject_id # UUID of the subject
+    event.link # optional URL
+    event.payload # Hash with the payload data
+    event.created_at # DateTime
+    event.received_at # DateTime
+  end
+end
+```
