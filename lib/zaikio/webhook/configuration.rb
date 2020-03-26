@@ -23,6 +23,10 @@ module Zaikio
       def find!(name)
         @client_configurations[name.to_s] or raise ActiveRecord::RecordNotFound
       end
+
+      def all_client_names
+        client_configurations.keys
+      end
     end
   end
 end

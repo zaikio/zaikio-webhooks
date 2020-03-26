@@ -11,6 +11,8 @@ module Zaikio
             my_app.shared_secret = "test-secret"
           end
         end
+
+        Zaikio::Webhook.reset
       end
 
       def signature(shared_secret, data)
@@ -31,8 +33,8 @@ module Zaikio
             "custom_attribute" => "abc"
           }
         }
-        WebhookExecutionJob.expects(:perform_later).with(data)
-        WebhookExecutionJob.expects(:perform_now).never
+        WebhookExecutionJob.expects(:perform_later).with("my_app", data)
+        WebhookExecutionJob.expects(:perform_now).with("my_app", data, perform_now: true)
         post zaikio_webhook.root_path("my_app"), params: data.to_json, headers: {
           "X-Loom-Signature" => signature("test-secret", data),
           "Content-Type" => "application/json"

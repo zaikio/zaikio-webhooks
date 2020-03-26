@@ -4,7 +4,8 @@ module Zaikio
       before_action :verify_signature
 
       def receive_event
-        WebhookExecutionJob.perform_later(event_params)
+        WebhookExecutionJob.perform_now(params[:client_name], event_params, perform_now: true)
+        WebhookExecutionJob.perform_later(params[:client_name], event_params)
 
         head :ok
       end

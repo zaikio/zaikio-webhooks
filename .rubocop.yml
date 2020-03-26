@@ -31,6 +31,15 @@ Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
 
+Metrics/MethodLength:
+  Max: 14
+  Exclude:
+    - test/**/*.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - test/**/*.rb
+
 Rails/UnknownEnv:
   Environments:
     - development
