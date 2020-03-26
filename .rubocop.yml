@@ -1,0 +1,37 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - bin/*
+    - db/**/*.rb
+    - tmp/*
+    - Rakefile
+    - test/dummy/**/*
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+Metrics/LineLength:
+  Max: 100
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - test/**/*.rb
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - staging
+    - sandbox
+    - production
