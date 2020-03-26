@@ -1,3 +1,3 @@
 Zaikio::Webhook::Engine.routes.draw do
-  get "/:app_name", to: "webhooks#receive_event"
+  post "/:client_name", to: "webhooks#receive_event", as: :root
 end

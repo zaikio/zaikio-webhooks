@@ -16,8 +16,12 @@ module Zaikio
       end
 
       def register_client(name)
-        @client_configurations[name] ||= ClientConfiguration.new
-        yield(@client_configurations[name])
+        @client_configurations[name.to_s] ||= ClientConfiguration.new
+        yield(@client_configurations[name.to_s])
+      end
+
+      def find!(name)
+        @client_configurations[name.to_s] or raise ActiveRecord::RecordNotFound
       end
     end
   end

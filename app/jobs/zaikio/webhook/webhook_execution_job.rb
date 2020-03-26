@@ -1,6 +1,6 @@
 module Zaikio
   module Webhook
-    class WebhookExecutionJob
+    class WebhookExecutionJob < ApplicationJob
       queue_as :default
 
       def perform(data); end

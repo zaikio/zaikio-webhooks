@@ -13,6 +13,7 @@ class Zaikio::Webhook::Test < ActiveSupport::TestCase
     end
 
     client_configurations = Zaikio::Webhook.configuration.client_configurations
-    assert_equal "secret", client_configurations[:my_app].shared_secret
+    assert_equal "secret", client_configurations["my_app"].shared_secret
+    assert_equal "secret", Zaikio::Webhook.configuration.find!(:my_app).shared_secret
   end
 end

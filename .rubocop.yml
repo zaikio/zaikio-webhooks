@@ -18,6 +18,9 @@ Style/ClassAndModuleChildren:
   Exclude:
     - test/**/*.rb
 
+Style/AndOr:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
