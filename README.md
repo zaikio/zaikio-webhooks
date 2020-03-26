@@ -52,7 +52,7 @@ mount Zaikio::Webhook::Engine => "/zaikio/webhook"
 The final webhook URL will be:
 
 ```
-https://mydomain.de/zaikio/webhook/client_name
+https://mydomain.de/zaikio/webhook/:client_name
 ```
 
 ### 4. Configure ActiveJob
