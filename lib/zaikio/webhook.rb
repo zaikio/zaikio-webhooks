@@ -1,4 +1,5 @@
 require "zaikio/webhook/configuration"
+require "zaikio/webhook/engine"
 
 module Zaikio
   module Webhook
