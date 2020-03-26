@@ -49,6 +49,12 @@ Zaikio::Webhook.on "directory.machine_added", AddMachineJob,
 mount Zaikio::Webhook::Engine => "/zaikio/webhook"
 ```
 
+The final webhook URL will be:
+
+```
+https://mydomain.de/zaikio/webhook/client_name
+```
+
 4. Configure ActiveJob
 
 It is recommended to configure background processing, if not all events are performed immediately. Read the [ActiveJob Rails Guide](https://guides.rubyonrails.org/active_job_basics.html) for more details.
