@@ -15,13 +15,11 @@ module Zaikio
         @webhooks = {}
       end
 
-      def webhooks_for(client_name, event_name, options = {})
-        (@webhooks.dig(client_name.to_s, event_name.to_s) || []).select do |webhook|
-          webhook[:options] == options
-        end
+      def webhooks_for(client_name, event_name)
+        (@webhooks.dig(client_name.to_s, event_name.to_s) || [])
       end
 
-      def on(event_name, client_name: nil, perform_now: false, &block)
+      def on(event_name, job_klass, client_name: nil, perform_now: false)
         @webhooks ||= {}
 
         client_names = Array(client_name || configuration.all_client_names).map(&:to_s)
@@ -29,10 +27,8 @@ module Zaikio
           @webhooks[name] ||= {}
           @webhooks[name][event_name.to_s] ||= []
           @webhooks[name][event_name.to_s] << {
-            options: {
-              perform_now: perform_now
-            },
-            block: block
+            perform_now: perform_now,
+            job_klass: job_klass
           }
         end
       end

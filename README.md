@@ -1,7 +1,6 @@
 # Zaikio::Webhook
 
-Gem that enables you to easily subscribe to Zaikio's webhooks. It also enables
-other gems to subscribe to events.
+Gem that enables you to easily subscribe to Zaikio's webhooks. It also enables other gems to subscribe to events.
 
 ## Installation
 
@@ -30,7 +29,18 @@ Zaikio::Webhook.configure do |config|
   config.register_client :my_app do |my_app|
     my_app.shared_secret = "test-secret"
   end
+
+  config.register_client :my_other_app do |my_other_app|
+    my_other_app.shared_secret = "test-secret"
+  end
 end
+
+# Perform job immediately, for all clients
+Zaikio::Webhook.on "directory.revoked_access_token", RevokeAccessTokenJob,
+                   perform_now: true
+# Only for a specific client
+Zaikio::Webhook.on "directory.machine_added", AddMachineJob,
+                   client_name: :my_app
 ```
 
 3. Mount Engine
@@ -39,7 +49,6 @@ end
 mount Zaikio::Webhook::Engine => "/zaikio/webhook"
 ```
 
+4. Configure ActiveJob
 
-## Usage
-
-Coming Soon
+It is recommended to configure background processing, if not all events are performed immediately. Read the [ActiveJob Rails Guide](https://guides.rubyonrails.org/active_job_basics.html) for more details.
