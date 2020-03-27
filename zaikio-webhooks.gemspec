@@ -5,7 +5,7 @@ require "zaikio/webhooks/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "zaikio-webhook"
+  spec.name        = "zaikio-webhooks"
   spec.version     = Zaikio::Webhooks::VERSION
   spec.authors     = ["Zaikio GmbH"]
   spec.email       = ["js@crispymtn.com"]
