@@ -37,10 +37,10 @@ end
 
 # Perform job immediately, for all clients
 Zaikio::Webhooks.on "directory.revoked_access_token", RevokeAccessTokenJob,
-                   perform_now: true
+                    perform_now: true
 # Only for a specific client
 Zaikio::Webhooks.on "directory.machine_added", AddMachineJob,
-                   client_name: :my_app
+                    client_name: :my_app
 ```
 
 ### 3. Mount Engine
