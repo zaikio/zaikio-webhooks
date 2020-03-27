@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zaikio-webhook (0.0.0)
+    zaikio-webhook (0.0.1)
       rails (>= 6.0.2.2)
 
 GEM
