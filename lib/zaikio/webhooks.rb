@@ -6,10 +6,23 @@ module Zaikio
   module Webhooks
     class << self
       attr_accessor :configuration
+      attr_reader :webhooks
 
       def configure
         self.configuration ||= Configuration.new
         yield(configuration)
+        @after_configuration_callbacks ||= []
+        (@after_configuration_callbacks || []).each(&:call)
+        @after_configuration_callbacks = []
+      end
+
+      def after_configuration(&block)
+        if configuration
+          yield
+        else
+          @after_configuration_callbacks ||= []
+          @after_configuration_callbacks << block
+        end
       end
 
       def reset
@@ -23,14 +36,16 @@ module Zaikio
       def on(event_name, job_klass, client_name: nil, perform_now: false)
         @webhooks ||= {}
 
-        client_names = Array(client_name || configuration.all_client_names).map(&:to_s)
-        client_names.each do |name|
-          @webhooks[name] ||= {}
-          @webhooks[name][event_name.to_s] ||= []
-          @webhooks[name][event_name.to_s] << {
-            perform_now: perform_now,
-            job_klass: job_klass
-          }
+        after_configuration do
+          client_names = Array(client_name || configuration.all_client_names).map(&:to_s)
+          client_names.each do |name|
+            @webhooks[name] ||= {}
+            @webhooks[name][event_name.to_s] ||= []
+            @webhooks[name][event_name.to_s] << {
+              perform_now: perform_now,
+              job_klass: job_klass
+            }
+          end
         end
       end
     end
