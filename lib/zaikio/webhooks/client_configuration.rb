@@ -1,7 +1,7 @@
 require "logger"
 
 module Zaikio
-  module Webhook
+  module Webhooks
     class ClientConfiguration
       attr_accessor :shared_secret
     end

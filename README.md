@@ -1,4 +1,4 @@
-# Zaikio::Webhook
+# Zaikio::Webhooks
 
 Gem that enables you to easily subscribe to Zaikio's webhooks. It also enables other gems to subscribe to events.
 
@@ -7,7 +7,7 @@ Gem that enables you to easily subscribe to Zaikio's webhooks. It also enables o
 ### 1. Add this line to your application's Gemfile:
 
 ```ruby
-gem 'zaikio-webhook'
+gem 'zaikio-webhooks'
 ```
 
 And then execute:
@@ -23,9 +23,9 @@ $ gem install zaikio-webhook
 ### 2. Configure the gem:
 
 ```rb
-# config/initializers/zaikio_webhook.rb
+# config/initializers/zaikio_webhooks.rb
 
-Zaikio::Webhook.configure do |config|
+Zaikio::Webhooks.configure do |config|
   config.register_client :my_app do |my_app|
     my_app.shared_secret = "test-secret"
   end
@@ -36,17 +36,17 @@ Zaikio::Webhook.configure do |config|
 end
 
 # Perform job immediately, for all clients
-Zaikio::Webhook.on "directory.revoked_access_token", RevokeAccessTokenJob,
+Zaikio::Webhooks.on "directory.revoked_access_token", RevokeAccessTokenJob,
                    perform_now: true
 # Only for a specific client
-Zaikio::Webhook.on "directory.machine_added", AddMachineJob,
+Zaikio::Webhooks.on "directory.machine_added", AddMachineJob,
                    client_name: :my_app
 ```
 
 ### 3. Mount Engine
 
 ```rb
-mount Zaikio::Webhook::Engine => "/zaikio/webhook"
+mount Zaikio::Webhooks::Engine => "/zaikio/webhook"
 ```
 
 The final webhook URL will be:

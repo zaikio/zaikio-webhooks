@@ -1,8 +1,8 @@
 require "logger"
-require "zaikio/webhook/client_configuration"
+require "zaikio/webhooks/client_configuration"
 
 module Zaikio
-  module Webhook
+  module Webhooks
     class Configuration
       attr_writer :logger
       attr_reader :client_configurations

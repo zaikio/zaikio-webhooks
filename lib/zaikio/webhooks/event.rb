@@ -1,7 +1,7 @@
 require "ostruct"
 
 module Zaikio
-  module Webhook
+  module Webhooks
     class Event
       extend Forwardable
       attr_reader :data

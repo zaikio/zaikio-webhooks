@@ -1,12 +1,12 @@
 module Zaikio
-  module Webhook
+  module Webhooks
     class WebhooksController < ApplicationController
       before_action :verify_signature
 
       def receive_event
-        Zaikio::Webhook.webhooks_for(params[:client_name], event_params[:name]).each do |webhook|
+        Zaikio::Webhooks.webhooks_for(params[:client_name], event_params[:name]).each do |webhook|
           webhook[:job_klass].public_send(webhook[:perform_now] ? :perform_now : :perform_later,
-                                          Zaikio::Webhook::Event.new(event_params))
+                                          Zaikio::Webhooks::Event.new(event_params))
         end
 
         head :ok
@@ -15,7 +15,7 @@ module Zaikio
       private
 
       def client_configuration
-        Zaikio::Webhook.configuration.find!(params[:client_name])
+        Zaikio::Webhooks.configuration.find!(params[:client_name])
       end
 
       def verify_signature

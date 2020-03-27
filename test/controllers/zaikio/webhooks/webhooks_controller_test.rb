@@ -13,18 +13,18 @@ class MyThirdJob < ApplicationJob
 end
 
 module Zaikio
-  module Webhook
+  module Webhooks
     class WebhooksControllerTest < ActionDispatch::IntegrationTest
       include Engine.routes.url_helpers
 
       def setup
-        Zaikio::Webhook.configure do |config|
+        Zaikio::Webhooks.configure do |config|
           config.register_client :my_app do |my_app|
             my_app.shared_secret = "test-secret"
           end
         end
 
-        Zaikio::Webhook.reset
+        Zaikio::Webhooks.reset
       end
 
       def signature(shared_secret, data)
@@ -32,19 +32,19 @@ module Zaikio
       end
 
       def register_job(perform_now: false)
-        Zaikio::Webhook.on "directory.revoked_access_token", MyJob,
-                           perform_now: perform_now
-        Zaikio::Webhook.on "directory.revoked_access_token", MyOtherJob,
-                           client_name: "other_app", perform_now: perform_now
-        Zaikio::Webhook.on "directory.revoked_access_token", MyThirdJob,
-                           perform_now: !perform_now
+        Zaikio::Webhooks.on "directory.revoked_access_token", MyJob,
+                            perform_now: perform_now
+        Zaikio::Webhooks.on "directory.revoked_access_token", MyOtherJob,
+                            client_name: "other_app", perform_now: perform_now
+        Zaikio::Webhooks.on "directory.revoked_access_token", MyThirdJob,
+                            perform_now: !perform_now
       end
 
       test "does nothing with no signature / secret" do
         register_job
         MyJob.expects(:perform_later).never
         MyJob.expects(:perform_now).never
-        post zaikio_webhook.root_path("my_app")
+        post zaikio_webhooks.root_path("my_app")
         assert_response :success
       end
 
@@ -57,7 +57,7 @@ module Zaikio
         }
         MyJob.expects(:perform_later).never
         MyJob.expects(:perform_now).never
-        post zaikio_webhook.root_path("my_app"), params: data.to_json, headers: {
+        post zaikio_webhooks.root_path("my_app"), params: data.to_json, headers: {
           "X-Loom-Signature" => signature("test-secret", data),
           "Content-Type" => "application/json"
         }
@@ -72,12 +72,12 @@ module Zaikio
             "custom_attribute" => "abc"
           }
         }
-        MyJob.expects(:perform_later).with(Zaikio::Webhook::Event.new(data))
+        MyJob.expects(:perform_later).with(Zaikio::Webhooks::Event.new(data))
         MyOtherJob.expects(:perform_later).never
         MyThirdJob.expects(:perform_later).never
-        MyThirdJob.expects(:perform_now).with(Zaikio::Webhook::Event.new(data))
+        MyThirdJob.expects(:perform_now).with(Zaikio::Webhooks::Event.new(data))
         MyJob.expects(:perform_now).never
-        post zaikio_webhook.root_path("my_app"), params: data.to_json, headers: {
+        post zaikio_webhooks.root_path("my_app"), params: data.to_json, headers: {
           "X-Loom-Signature" => signature("test-secret", data),
           "Content-Type" => "application/json"
         }
@@ -89,7 +89,7 @@ module Zaikio
         data = { "name" => "directory.revoked_access_token" }
         MyJob.expects(:perform_later).never
         MyJob.expects(:perform_now).never
-        post zaikio_webhook.root_path("my_app"), params: data.to_json, headers: {
+        post zaikio_webhooks.root_path("my_app"), params: data.to_json, headers: {
           "X-Loom-Signature" => signature("wrong-secret", data),
           "Content-Type" => "application/json"
         }

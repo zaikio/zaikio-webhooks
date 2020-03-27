@@ -1,5 +1,5 @@
 module Zaikio
-  module Webhook
+  module Webhooks
     VERSION = "0.0.0".freeze
   end
 end

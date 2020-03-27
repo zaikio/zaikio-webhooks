@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Zaikio::Webhook::Engine => "/zaikio/webhooks"
+  mount Zaikio::Webhooks::Engine => "/zaikio/webhooks"
 end

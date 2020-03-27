@@ -14,7 +14,7 @@ require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "zaikio/webhook"
+require "zaikio/webhooks"
 
 module Dummy
   class Application < Rails::Application

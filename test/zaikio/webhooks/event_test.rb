@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Zaikio::Webhook::EventTest < ActiveSupport::TestCase
+class Zaikio::Webhooks::EventTest < ActiveSupport::TestCase
   test "event has correct attributes" do
     event_data = {
       "id" => "62abcc92-e17e-4db0-b78e-13369251474b",
@@ -15,7 +15,7 @@ class Zaikio::Webhook::EventTest < ActiveSupport::TestCase
       },
       "link" => "https://directory.sandbox.zaikio.com/api/v1/machines/9709f0f1-d00b-48fa-bb01-8c52bbd7296e"
     }
-    event = Zaikio::Webhook::Event.new(event_data)
+    event = Zaikio::Webhooks::Event.new(event_data)
 
     assert_equal event_data["id"], event.id
     assert_equal event_data["name"], event.name
