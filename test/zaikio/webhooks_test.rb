@@ -33,12 +33,22 @@ class Zaikio::Webhooks::Test < ActiveSupport::TestCase
     end
 
     assert_equal({
-                   "my_app" => { "my_event" => [{ perform_now: false, job_klass: MyTestJob }] }
+                   "my_app" => { "my_event" => { MyTestJob => { perform_now: false } } }
                  }, Zaikio::Webhooks.webhooks)
 
     Zaikio::Webhooks.on "my_other_event", MyTestJob
 
-    assert_equal([{ perform_now: false, job_klass: MyTestJob }],
+    assert_equal({ MyTestJob => { perform_now: false } },
+                 Zaikio::Webhooks.webhooks["my_app"]["my_other_event"])
+
+    Zaikio::Webhooks.on "my_other_event", MyTestJob
+
+    assert_equal({ MyTestJob => { perform_now: false } },
+                 Zaikio::Webhooks.webhooks["my_app"]["my_other_event"])
+
+    Zaikio::Webhooks.on "my_other_event", MyTestJob, perform_now: true
+
+    assert_equal({ MyTestJob => { perform_now: true } },
                  Zaikio::Webhooks.webhooks["my_app"]["my_other_event"])
   end
 end
