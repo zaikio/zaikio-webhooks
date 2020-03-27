@@ -77,3 +77,9 @@ class AddMachineJob < ApplicationJob
   end
 end
 ```
+
+### 6. Add Webhook URL to Zaikio Hub
+
+Login to [Zaikio Hub](https://directory.zaikio.com/) and go to your Apps and go to Edit App and add your webhook URL e.g. `https://mydomain.de/zaikio/webhook/my_app_name`.
+
+Now you should receive all events you subscribed to.
