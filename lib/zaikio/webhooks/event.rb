@@ -5,7 +5,7 @@ module Zaikio
     class Event
       extend Forwardable
       attr_reader :data
-      def_delegators :data, :id, :name, :version, :payload, :link
+      def_delegators :data, :id, :name, :version, :payload, :link, :to_h
 
       def initialize(event_data)
         @data = OpenStruct.new(event_data)

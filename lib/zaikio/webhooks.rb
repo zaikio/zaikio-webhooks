@@ -1,5 +1,6 @@
 require "zaikio/webhooks/configuration"
 require "zaikio/webhooks/event"
+require "zaikio/webhooks/event_serializer"
 require "zaikio/webhooks/engine"
 
 module Zaikio
