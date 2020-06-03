@@ -34,13 +34,6 @@ Zaikio::Webhooks.configure do |config|
     my_other_app.shared_secret = "test-secret"
   end
 end
-
-# Perform job immediately, for all clients
-Zaikio::Webhooks.on "directory.revoked_access_token", RevokeAccessTokenJob,
-                    perform_now: true
-# Only for a specific client
-Zaikio::Webhooks.on "directory.machine_added", AddMachineJob,
-                    client_name: :my_app
 ```
 
 ### 3. Mount Engine
@@ -83,3 +76,16 @@ end
 Login to [Zaikio Hub](https://directory.zaikio.com/) and go to your Apps and go to Edit App and add your webhook URL e.g. `https://mydomain.de/zaikio/webhook/my_app_name`.
 
 Now you should receive all events you subscribed to.
+
+### 7. Usage
+
+When everything is set up you can register events with custom jobs like this (you might add this to the `config/initializers/zaikio_webhooks.rb`):
+
+```rb
+# Perform job immediately, for all clients
+Zaikio::Webhooks.on "directory.revoked_access_token", RevokeAccessTokenJob,
+                    perform_now: true
+# Only for a specific client
+Zaikio::Webhooks.on "directory.machine_added", AddMachineJob,
+                    client_name: :my_app
+```
