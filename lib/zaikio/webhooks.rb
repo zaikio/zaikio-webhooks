@@ -1,3 +1,4 @@
+require "active_support/core_ext/integer/time"
 require "zaikio/webhooks/configuration"
 require "zaikio/webhooks/event"
 require "zaikio/webhooks/event_serializer"

@@ -5,6 +5,7 @@ module Zaikio
     class Event
       extend Forwardable
       attr_reader :data
+
       def_delegators :data, :id, :name, :version, :payload, :link, :client_name, :to_h
 
       def initialize(event_data)
