@@ -79,13 +79,26 @@ Now you should receive all events you subscribed to.
 
 ### 7. Usage
 
-When everything is set up you can register events with custom jobs like this (you might add this to the `config/initializers/zaikio_webhooks.rb`):
+When everything is set up you can register events with custom jobs, using the
+`Zaikio::Webhooks.on` function. This is idempotent and can be safely re-executed.
+
+For Rails 6.0 and above, we can setup an initializer like so:
 
 ```rb
-# Perform job immediately, for all clients
-Zaikio::Webhooks.on "directory.revoked_access_token", RevokeAccessTokenJob,
-                    perform_now: true
-# Only for a specific client
-Zaikio::Webhooks.on "directory.machine_added", AddMachineJob,
-                    client_name: :my_app
+# config/initializers/zaikio_webhooks.rb
+
+# We need to add this special wrapper here because we're referencing autoloaded constants
+# (RevokeAccessTokenJob, AddMachineJob) at boot time. For more information, see:
+# https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoloading-when-the-application-boots
+Rails.application.reloader.to_prepare do
+  # Perform job immediately, for all clients
+  Zaikio::Webhooks.on "directory.revoked_access_token", RevokeAccessTokenJob,
+                      perform_now: true
+  # Only for a specific client
+  Zaikio::Webhooks.on "directory.machine_added", AddMachineJob,
+                      client_name: :my_app
+end
 ```
+
+If you're using a Rails v5.2 or less, you can skip the outer `Rails.application.reloader`
+block and just use the inner section directly.

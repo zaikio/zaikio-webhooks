@@ -51,4 +51,22 @@ class Zaikio::Webhooks::Test < ActiveSupport::TestCase
     assert_equal({ MyTestJob => { perform_now: true } },
                  Zaikio::Webhooks.webhooks["my_app"]["my_other_event"])
   end
+
+  test "configuring webhooks is idempotent" do
+    Zaikio::Webhooks.configuration = nil
+    Zaikio::Webhooks.reset
+
+    2.times { Zaikio::Webhooks.on "my_event", MyTestJob }
+
+    Zaikio::Webhooks.configure do |config|
+      config.register_client :idempotent_app do |idempotent_app|
+        idempotent_app.shared_secret = "secret"
+      end
+    end
+
+    assert_equal(
+      { "my_event" => { MyTestJob => { perform_now: false } } },
+      Zaikio::Webhooks.webhooks.fetch("idempotent_app")
+    )
+  end
 end
