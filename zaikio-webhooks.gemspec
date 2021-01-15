@@ -9,10 +9,15 @@ Gem::Specification.new do |spec|
   spec.version     = Zaikio::Webhooks::VERSION
   spec.authors     = ["Zaikio GmbH"]
   spec.email       = ["js@crispymtn.com"]
-  spec.homepage    = "https://www.zaikio.com/"
+  spec.homepage    = "https://github.com/zaikio/zaikio-webhooks"
   spec.summary     = "Handle incoming Zaikio loom webhooks"
   spec.description = "Handle incoming Zaikio loom webhooks"
   spec.license     = "MIT"
+
+  if spec.respond_to?(:metadata)
+    spec.metadata["changelog_uri"] = "https://github.com/zaikio/zaikio-webhooks/blob/main/CHANGELOG.md"
+    spec.metadata["source_code_uri"] = "https://github.com/zaikio/zaikio-webhooks"
+  end
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 

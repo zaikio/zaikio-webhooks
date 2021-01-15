@@ -102,3 +102,15 @@ end
 
 If you're using a Rails v5.2 or less, you can skip the outer `Rails.application.reloader`
 block and just use the inner section directly.
+
+## Contributing
+
+- Make your changes and submit a pull request for them
+- Make sure to update `CHANGELOG.md`
+
+To release a new version of the gem:
+- Update the version in `lib/zaikio/webhooks/version.rb`
+- Update `CHANGELOG.md` to include the new version and its release date
+- Commit and push your changes
+- Create a [new release on GitHub](https://github.com/zaikio/zaikio-webhooks/releases/new)
+- CircleCI will build the Gem package and push it Rubygems for you
