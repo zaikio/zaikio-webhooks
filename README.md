@@ -82,7 +82,7 @@ Now you should receive all events you subscribed to.
 When everything is set up you can register events with custom jobs, using the
 `Zaikio::Webhooks.on` function. This is idempotent and can be safely re-executed.
 
-For Rails 6.0 and above, we can setup an initializer like so:
+We can setup an initializer like so:
 
 ```rb
 # config/initializers/zaikio_webhooks.rb
@@ -99,9 +99,6 @@ Rails.application.reloader.to_prepare do
                       client_name: :my_app
 end
 ```
-
-If you're using a Rails v5.2 or less, you can skip the outer `Rails.application.reloader`
-block and just use the inner section directly.
 
 ## Contributing
 
