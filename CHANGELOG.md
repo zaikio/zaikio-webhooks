@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Update rails dependency for Rails 5 support
 
 ### [0.0.7] - 2020-01-15
-
 * Add a changelog
 * Setup automated gem publishing
 
