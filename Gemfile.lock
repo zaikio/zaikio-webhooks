@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zaikio-webhooks (0.0.7)
+    zaikio-webhooks (0.0.8)
       rails (>= 5.0.0)
 
 GEM
@@ -86,12 +86,10 @@ GEM
     method_source (1.0.0)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
-    mini_portile2 (2.5.0)
     minitest (5.14.3)
     mocha (1.12.0)
     nio4r (2.5.4)
-    nokogiri (1.11.1)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.11.1-x86_64-darwin)
       racc (~> 1.4)
     parallel (1.20.1)
     parser (3.0.0.0)
