@@ -1,8 +1,9 @@
 PATH
   remote: .
   specs:
-    zaikio-webhooks (0.0.9)
+    zaikio-webhooks (0.0.10)
       actionpack (~> 6.0, >= 6.0.2.2)
+      activejob (~> 6.0, >= 6.0.2.2)
       railties (~> 6.0, >= 6.0.2.2)
 
 GEM

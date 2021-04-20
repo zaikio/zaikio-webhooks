@@ -31,7 +31,7 @@ module Zaikio
 
       def event_params
         params.permit(:id, :client_name, :name, :subject, :timestamp,
-                      :version, :link, :received_at, payload: {})
+                      :version, :link, :received_at, payload: {}).to_h
       end
     end
   end
