@@ -10,7 +10,7 @@ module Zaikio
       end
 
       def deserialize(data)
-        Event.new(data)
+        Event.new(data.without("_aj_serialized"))
       end
     end
   end
