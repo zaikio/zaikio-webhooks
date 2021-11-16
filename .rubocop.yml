@@ -49,3 +49,6 @@ Rails/UnknownEnv:
     - staging
     - sandbox
     - production
+
+Gemspec/RequireMFA:
+  Enabled: false
