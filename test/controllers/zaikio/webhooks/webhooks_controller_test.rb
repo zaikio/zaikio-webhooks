@@ -73,12 +73,12 @@ module Zaikio
           }
         }
         MyJob.expects(:perform_later).with(
-          Zaikio::Webhooks::Event.new(data.merge(client_name: "my_app"))
+          Zaikio::Webhooks::Event.new(data.merge("client_name" => "my_app"))
         )
         MyOtherJob.expects(:perform_later).never
         MyThirdJob.expects(:perform_later).never
         MyThirdJob.expects(:perform_now).with(
-          Zaikio::Webhooks::Event.new(data.merge(client_name: "my_app"))
+          Zaikio::Webhooks::Event.new(data.merge("client_name" => "my_app"))
         )
         MyJob.expects(:perform_now).never
         post zaikio_webhooks.root_path("my_app"), params: data.to_json, headers: {

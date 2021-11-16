@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Switch `Zaikio::Webhooks::Event#data` from an `OpenStruct` to a `Hash`. Note that `id`,
+  `name`, `version` etc are already defined on the `Event` object - however if you need
+  access to the raw event payload, you should lookup by hash accessor, e.g.:
+
+```diff
+-event.data.client_name
++event.data["client_name"]
+```
+
 ## [0.0.11] - 2021-04-20
 
 * Fix bug where `event.payload` is converted to a String
