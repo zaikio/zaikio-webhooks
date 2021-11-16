@@ -1,7 +1,6 @@
 require "test_helper"
 
-class MyTestJob
-end
+MyTestJob = Class.new
 
 class Zaikio::Webhooks::Test < ActiveSupport::TestCase
   test "has version number" do

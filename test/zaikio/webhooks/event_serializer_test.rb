@@ -16,7 +16,9 @@ class Zaikio::Webhooks::EventSerializerTest < ActiveSupport::TestCase
       },
       "link" => "https://directory.sandbox.zaikio.com/api/v1/machines/9709f0f1-d00b-48fa-bb01-8c52bbd7296e"
     }
-    params = ActionController::Parameters.new(event_data).permit(:id, :client_name, :name, :subject, :timestamp, :version, :link, :received_at, payload: {})
+    params = ActionController::Parameters.new(event_data).permit(
+      :id, :client_name, :name, :subject, :timestamp, :version, :link, :received_at, payload: {}
+    )
     event = Zaikio::Webhooks::Event.new(params)
 
     serialized = Zaikio::Webhooks::EventSerializer.serialize(event)
