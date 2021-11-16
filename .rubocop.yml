@@ -7,12 +7,13 @@ AllCops:
     - Rakefile
     - test/dummy/**/*
     - vendor/bundle/**/*
+  NewCops: enable
 
 require:
   - rubocop-performance
   - rubocop-rails
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 Style/ClassAndModuleChildren:
