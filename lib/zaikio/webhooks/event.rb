@@ -4,28 +4,33 @@ module Zaikio
   module Webhooks
     class Event
       extend Forwardable
-      attr_reader :data
 
-      def_delegators :data, :id, :name, :version, :payload, :link, :client_name, :to_h
+      attr_reader :id, :name, :version, :payload, :link, :client_name, :data
+
+      def_delegators :data, :to_h
 
       def initialize(event_data)
-        @data = OpenStruct.new(event_data)
+        event_data.each do |key, value|
+          instance_variable_set("@#{key}", value)
+        end
+
+        @data = event_data
       end
 
       def created_at
-        DateTime.parse(data.timestamp)
+        DateTime.parse(data["timestamp"])
       end
 
       def received_at
-        DateTime.parse(data.received_at)
+        DateTime.parse(data["received_at"])
       end
 
       def subject_id
-        data.subject.split("/").last
+        data["subject"].split("/").last
       end
 
       def subject_type
-        data.subject.split("/").first == "Org" ? "Organization" : "Person"
+        data["subject"].split("/").first == "Org" ? "Organization" : "Person"
       end
 
       def ==(other)
