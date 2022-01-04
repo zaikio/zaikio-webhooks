@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 +event.data["client_name"]
 ```
 
+* Allow usage with Rails 7.x applications
+
 ## [0.0.11] - 2021-04-20
 
 * Fix bug where `event.payload` is converted to a String
