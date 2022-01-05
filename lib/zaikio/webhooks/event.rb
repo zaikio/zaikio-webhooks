@@ -10,6 +10,8 @@ module Zaikio
       def_delegators :data, :to_h
 
       def initialize(event_data)
+        event_data = event_data.to_h.stringify_keys
+
         event_data.each do |key, value|
           instance_variable_set("@#{key}", value)
         end

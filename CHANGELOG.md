@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Allow using symbol keys when constructing `Zaikio::Webhooks::Event` (all keys are cast
+  to strings for reading).
+
 ## [0.1.0] - 2022-01-04
 
 * Switch `Zaikio::Webhooks::Event#data` from an `OpenStruct` to a `Hash`. Note that `id`,
