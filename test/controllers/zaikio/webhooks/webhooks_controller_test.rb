@@ -9,7 +9,7 @@ class MyOtherJob < ApplicationJob
 end
 
 class MyThirdJob < ApplicationJob
-  def perform(event_data); end
+  def perform(event_data, custom_option:); end
 end
 
 module Zaikio
@@ -37,7 +37,8 @@ module Zaikio
         Zaikio::Webhooks.on "directory.revoked_access_token", MyOtherJob,
                             client_name: "other_app", perform_now: perform_now
         Zaikio::Webhooks.on "directory.revoked_access_token", MyThirdJob,
-                            perform_now: !perform_now
+                            perform_now: !perform_now,
+                            options: { custom_option: "a" }
       end
 
       test "does nothing with no signature / secret" do
@@ -78,7 +79,8 @@ module Zaikio
         MyOtherJob.expects(:perform_later).never
         MyThirdJob.expects(:perform_later).never
         MyThirdJob.expects(:perform_now).with(
-          Zaikio::Webhooks::Event.new(data.merge("client_name" => "my_app"))
+          Zaikio::Webhooks::Event.new(data.merge("client_name" => "my_app")),
+          custom_option: "a"
         )
         MyJob.expects(:perform_now).never
         post zaikio_webhooks.root_path("my_app"), params: data.to_json, headers: {
