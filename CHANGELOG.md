@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2022-08-15
+
 * Allow using symbol keys when constructing `Zaikio::Webhooks::Event` (all keys are cast
   to strings for reading).
 * `options` are passed to keyword arguments to the job when it is scheduled
@@ -42,7 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add a changelog
 * Setup automated gem publishing
 
-[Unreleased]: https://github.com/zaikio/zaikio-webhooks/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/zaikio/zaikio-webhooks/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/zaikio/zaikio-webhooks/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/zaikio/zaikio-webhooks/compare/v0.0.11...v0.1.0
 [0.0.11]: https://github.com/zaikio/zaikio-webhooks/compare/v0.0.10...v0.0.11
 [0.0.10]: https://github.com/zaikio/zaikio-webhooks/compare/v0.0.9...v0.0.10
