@@ -35,7 +35,7 @@ module Zaikio
         (@webhooks.dig(client_name.to_s, event_name.to_s) || {})
       end
 
-      def on(event_name, job_klass, client_name: nil, perform_now: false)
+      def on(event_name, job_klass, client_name: nil, perform_now: false, options: {})
         @webhooks ||= {}
 
         after_configuration do
@@ -44,7 +44,8 @@ module Zaikio
             @webhooks[name] ||= {}
             @webhooks[name][event_name.to_s] ||= {}
             @webhooks[name][event_name.to_s][job_klass] = {
-              perform_now: perform_now
+              perform_now: perform_now,
+              options: options
             }
           end
         end

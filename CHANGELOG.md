@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Allow using symbol keys when constructing `Zaikio::Webhooks::Event` (all keys are cast
   to strings for reading).
+* `options` are passed to keyword arguments to the job when it is scheduled
 
 ## [0.1.0] - 2022-01-04
 

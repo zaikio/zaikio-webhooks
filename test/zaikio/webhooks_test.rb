@@ -32,22 +32,24 @@ class Zaikio::Webhooks::Test < ActiveSupport::TestCase
     end
 
     assert_equal({
-                   "my_app" => { "my_event" => { MyTestJob => { perform_now: false } } }
+                   "my_app" => { "my_event" => { MyTestJob => {
+                     perform_now: false, options: {}
+                   } } }
                  }, Zaikio::Webhooks.webhooks)
 
     Zaikio::Webhooks.on "my_other_event", MyTestJob
 
-    assert_equal({ MyTestJob => { perform_now: false } },
+    assert_equal({ MyTestJob => { perform_now: false, options: {} } },
                  Zaikio::Webhooks.webhooks["my_app"]["my_other_event"])
 
     Zaikio::Webhooks.on "my_other_event", MyTestJob
 
-    assert_equal({ MyTestJob => { perform_now: false } },
+    assert_equal({ MyTestJob => { perform_now: false, options: {} } },
                  Zaikio::Webhooks.webhooks["my_app"]["my_other_event"])
 
     Zaikio::Webhooks.on "my_other_event", MyTestJob, perform_now: true
 
-    assert_equal({ MyTestJob => { perform_now: true } },
+    assert_equal({ MyTestJob => { perform_now: true, options: {} } },
                  Zaikio::Webhooks.webhooks["my_app"]["my_other_event"])
   end
 
@@ -64,7 +66,7 @@ class Zaikio::Webhooks::Test < ActiveSupport::TestCase
     end
 
     assert_equal(
-      { "my_event" => { MyTestJob => { perform_now: false } } },
+      { "my_event" => { MyTestJob => { perform_now: false, options: {} } } },
       Zaikio::Webhooks.webhooks.fetch("idempotent_app")
     )
   end

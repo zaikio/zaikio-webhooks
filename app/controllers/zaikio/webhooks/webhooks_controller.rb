@@ -8,7 +8,7 @@ module Zaikio
         Zaikio::Webhooks.webhooks_for(params[:client_name], event_params[:name])
                         .each do |job_klass, options|
           job_klass.public_send(options[:perform_now] ? :perform_now : :perform_later,
-                                Zaikio::Webhooks::Event.new(event_params))
+                                Zaikio::Webhooks::Event.new(event_params), **options[:options])
         end
 
         head :ok
