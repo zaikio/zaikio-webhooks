@@ -96,7 +96,7 @@ Rails.application.reloader.to_prepare do
                       perform_now: true
   # Only for a specific client
   Zaikio::Webhooks.on "directory.machine_added", AddMachineJob,
-                      client_name: :my_app
+                      client_name: :my_app, options: { custom_keyword_argument_for_job: "value" }
 end
 ```
 
